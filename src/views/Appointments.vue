@@ -219,13 +219,14 @@ import Vue from "vue";
 export default Vue.extend({
   name: "Appointments",
   methods: {
-    changeDate(calendarDate: any) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    changeDate(calendarDate: any): void {
       this.currentDate.setMonth(calendarDate.start.month - 1);
       this.currentDate.setFullYear(calendarDate.start.year);
 
       this.$forceUpdate();
     },
-    dateToMonth(date: Date) {
+    dateToMonth(): string {
       return (
         this.currentDate.toLocaleString("default", { month: "long" }) +
         " " +
@@ -243,7 +244,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .scheduled-meetings-scroll {
   overflow: auto;
-  max-height: calc(100vh - 120px);
+  padding-bottom: 74px;
 }
 .appointment-holder {
   display: flex;
@@ -251,6 +252,7 @@ export default Vue.extend({
   padding: 10px;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
 }
 .appointment-holder .appointment-time {
   text-align: center;
@@ -269,5 +271,12 @@ export default Vue.extend({
 
 .scheduled-meetings-holder .col {
   padding: 6px 12px;
+}
+
+@media (min-width: 600px) {
+  .scheduled-meetings-scroll {
+    max-height: calc(100vh - 120px);
+    padding-bottom: 0px;
+  }
 }
 </style>
