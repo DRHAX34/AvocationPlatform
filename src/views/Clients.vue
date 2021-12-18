@@ -97,11 +97,30 @@
                         border-radius: 50%;
                       "
                     >
-                      <img
+                      <v-avatar
                         class="client-picture"
-                        :src="getClientEditPicture()"
-                        @load="clientPictureLoaded = true"
-                      />
+                        color="#78d64b"
+                        size="140"
+                      >
+                        <img
+                          :src="getClientEditPicture()"
+                          style="object-fit: cover"
+                          @load="clientPictureLoaded = true"
+                          v-if="hasClientImage(editedItem) || clientPictureNew"
+                        />
+                        <span
+                          v-if="
+                            !hasClientImage(editedItem) && !clientPictureNew
+                          "
+                          class="text-h4 white--text"
+                        >
+                          {{
+                            getItemInitials(editedItem.name) == ""
+                              ? "New"
+                              : getItemInitials(editedItem.name)
+                          }}
+                        </span>
+                      </v-avatar>
                       <v-fade-transition>
                         <div
                           class="client-picture white d-flex align-center justify-center"
@@ -134,7 +153,7 @@
                 </div>
               </v-col>
             </v-row>
-            <v-row>
+            <v-row class="client-form">
               <v-col cols="12" sm="6">
                 <v-text-field
                   v-model="$v.editedItem.name.$model"
@@ -266,7 +285,7 @@ export default {
       snackText: "",
       loading: false,
       search: "",
-      clientPictureLoaded: false,
+      clientPictureLoaded: true,
       clientPictureNew: false,
       headers: [
         {
@@ -274,6 +293,7 @@ export default {
           width: "42px",
           class: ["align-center", "justify-center"],
           value: "pictureUri",
+          sortable: false,
         },
         { text: "Name", value: "name" },
         { text: "City", value: "city" },
@@ -554,6 +574,10 @@ export default {
 <style lang="scss" scoped>
 #clientsContainer {
   padding-bottom: 72px;
+}
+
+.client-form div {
+  padding: 0px 12px;
 }
 
 .client-picture {
