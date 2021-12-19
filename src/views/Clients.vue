@@ -41,7 +41,9 @@
           <v-avatar color="#78d64b" size="34">
             <img
               v-if="hasClientImage(props.item)"
-              src="props.item.id"
+              style="object-fit: cover"
+              loading="lazy"
+              :src="getClientImage(props.item.id)"
               :alt="props.item.name"
             />
             <span v-if="!hasClientImage(props.item)">
@@ -222,12 +224,26 @@
           >Are you sure you want to delete the selected item?</v-card-title
         >
 
-        <v-card-text class="d-flex align-center justify-center">
+        <v-card-text class="d-flex flex-column align-center justify-center">
           <v-list>
-            <v-list-item>
+            <v-list-item two-line>
               <v-list-item-avatar>
-                <v-avatar color="#78d64b">
-                  {{ getItemInitials(deletingItem.name) }}
+                <v-avatar size="40" class="client-picture" color="#78d64b">
+                  <img
+                    :src="getClientImage(deletingItem.id)"
+                    style="object-fit: cover"
+                    v-if="hasClientImage(deletingItem)"
+                  />
+                  <span
+                    v-if="!hasClientImage(deletingItem)"
+                    class="text-h4 white--text"
+                  >
+                    {{
+                      getItemInitials(deletingItem.name) == ""
+                        ? "New"
+                        : getItemInitials(deletingItem.name)
+                    }}
+                  </span>
                 </v-avatar>
               </v-list-item-avatar>
               <v-list-item-title>{{ deletingItem.name }}</v-list-item-title>
@@ -368,10 +384,14 @@ export default {
       this.$refs.clientPictureUpload.click();
     },
     clearNewPicture() {
-      this.$refs.clientPictureUpload.value = "";
+      if (this.$refs.clientPictureUpload)
+        this.$refs.clientPictureUpload.value = "";
       this.clientPictureNew = false;
-      this.clientImageUri =
-        "https://image.shutterstock.com/image-vector/tv-colour-bars-test-card-260nw-1723500985.jpg";
+      if (this.hasClientImage(this.editedItem)) {
+        this.clientImageUri = this.getClientImage(this.editedItem.id);
+      } else {
+        this.clientImageUri = "";
+      }
     },
     selectedNewPicture() {
       if (this.$refs.clientPictureUpload.files.length > 0) {
@@ -381,6 +401,9 @@ export default {
         );
         this.clientPictureNew = true;
       }
+    },
+    getClientImage(id) {
+      return this.$ApiService.Picture("Clients", id);
     },
     getClientEditPicture() {
       return this.clientImageUri;
@@ -425,6 +448,7 @@ export default {
     },
     fetchClients() {
       this.loading = true;
+      this.clients = [];
 
       this.$ApiService
         .Get("Clients")
@@ -445,6 +469,10 @@ export default {
         this.defaultItem[property] = item[property];
         this.editedItem[property] = item[property];
       }
+
+      if (this.editedItem.id != "")
+        this.clientImageUri = this.getClientImage(this.editedItem.id);
+
       this.dialog = true;
     },
     saveDialog() {
@@ -474,23 +502,7 @@ export default {
       this.editedItem.phone = this.editedItem.phone.trim();
       this.editedItem.email = this.editedItem.email.trim();
 
-      var clientRequest = {
-        Client: {
-          Id: this.editedItem.id == "" ? null : this.editedItem.id,
-          Name: this.editedItem.name,
-          VAT: this.editedItem.vat,
-          PictureUri: this.editedItem.pictureUri,
-          Address: this.editedItem.address,
-          ZipCode: this.editedItem.zipCode,
-          City: this.editedItem.city,
-          Phone: this.editedItem.phone,
-          Email: this.editedItem.email,
-        },
-        UserId: "Teste",
-      };
-
-      this.$ApiService
-        .InsertUpdate("Clients", clientRequest)
+      this.saveToServer()
         .then((response) => {
           const clientResponse = JSON.parse(response.data);
 
@@ -517,15 +529,64 @@ export default {
           this.fetchClients();
         });
     },
+    async saveToServer() {
+      var clientRequest = {
+        Client: {
+          Id: this.editedItem.id == "" ? null : this.editedItem.id,
+          Name: this.editedItem.name,
+          VAT: this.editedItem.vat,
+          PictureUri: this.editedItem.pictureUri,
+          Address: this.editedItem.address,
+          ZipCode: this.editedItem.zipCode,
+          City: this.editedItem.city,
+          Phone: this.editedItem.phone,
+          Email: this.editedItem.email,
+        },
+        UserId: "Teste",
+      };
+
+      var serviceResponse = await this.$ApiService.InsertUpdate(
+        "Clients",
+        clientRequest
+      );
+
+      const clientResponse = JSON.parse(serviceResponse.data);
+
+      if (
+        clientResponse.clients &&
+        clientResponse.clients.length > 0 &&
+        clientResponse.clients[0].id
+      ) {
+        //Save the picture if file selected
+        if (this.$refs.clientPictureUpload.files.length > 0) {
+          var clientImageForm = new FormData();
+          var file = this.$refs.clientPictureUpload.files[0];
+
+          clientImageForm.append("ClientPicture", file, file.name);
+
+          await this.$ApiService.PutPicture(
+            "Clients",
+            clientResponse.clients[0].id,
+            clientImageForm
+          );
+        }
+      } else {
+        throw clientResponse.error.message;
+      }
+
+      return serviceResponse;
+    },
     closeDialog() {
       this.$v.$reset();
       this.dialog = false;
+      this.clearNewPicture();
       this.errorMessages = "";
       this.defaultItem.id = "";
       this.defaultItem.name = "";
       this.defaultItem.vat = "";
       this.defaultItem.address = "";
       this.defaultItem.zipCode = "";
+      this.defaultItem.pictureUri = "";
       this.defaultItem.city = "";
       this.defaultItem.phone = "";
       this.defaultItem.email = "";
@@ -537,6 +598,7 @@ export default {
       this.editedItem.city = "";
       this.editedItem.phone = "";
       this.editedItem.email = "";
+      this.editedItem.pictureUri = "";
     },
     showDeleteDialog(item) {
       this.dialogDelete;

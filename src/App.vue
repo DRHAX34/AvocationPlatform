@@ -46,6 +46,12 @@
           >
           <v-list-item-content>Openings</v-list-item-content>
         </v-list-item>
+        <v-list-item link to="/Candidates">
+          <v-list-item-icon
+            ><v-icon>mdi-account-box-outline</v-icon></v-list-item-icon
+          >
+          <v-list-item-content>Candidates</v-list-item-content>
+        </v-list-item>
         <v-list-item link to="/Clients">
           <v-list-item-icon
             ><v-icon>mdi-account-multiple</v-icon></v-list-item-icon
@@ -178,6 +184,10 @@ export default Vue.extend({
       }
       if (to.path.startsWith("/Openings")) {
         this.currentPage = "Openings";
+        return;
+      }
+      if (to.path.startsWith("/Candidates")) {
+        this.currentPage = "Candidates";
         return;
       }
       if (to.path.startsWith("/Clients")) {

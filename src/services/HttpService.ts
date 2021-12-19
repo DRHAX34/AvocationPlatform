@@ -48,6 +48,23 @@ export default class HttpService {
 
   /**
    * @param {String} url
+   * @param {Object} data
+   * @returns {*|Promise<any>}
+   */
+  async put(
+    url: string,
+    data: unknown,
+    config: AxiosRequestConfig<unknown> | undefined
+  ): Promise<AxiosResponse<unknown, unknown>> {
+    return await this.httpClient.put(
+      this.normalize(this.baseApiUrl, url),
+      data,
+      config
+    );
+  }
+
+  /**
+   * @param {String} url
    * @returns {*|Promise<any>}
    */
   async delete(

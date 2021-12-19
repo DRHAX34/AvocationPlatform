@@ -13,6 +13,27 @@ export default class ApiService extends BaseService {
     super(options);
   }
 
+  Picture(controller: string, id: string): string {
+    return this.httpService.baseApiUrl + "/" + controller + "/Picture?Id=" + id;
+  }
+
+  async PutPicture(
+    controller: string,
+    id: string,
+    PictureFormData: FormData
+  ): Promise<AxiosResponse<unknown, unknown>> {
+    return await this.httpService.put(
+      controller + "/Picture?Id=" + id,
+      PictureFormData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          ...(await this.getDefaultHeaders()).headers,
+        },
+      }
+    );
+  }
+
   async Get(
     controller: string,
     rq: unknown
