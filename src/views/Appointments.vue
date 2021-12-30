@@ -306,7 +306,7 @@
                 </v-menu>
               </v-col>
               <v-col cols="12" sm="6" style="position: relative">
-                <v-select
+                <v-autocomplete
                   required
                   v-model="editedItem.candidateId"
                   :error-messages="getErrorMessages(editedItem.candidateId)"
@@ -317,10 +317,10 @@
                   label="Candidate *"
                   item-text="preferredName"
                   item-value="id"
-                ></v-select>
+                ></v-autocomplete>
               </v-col>
               <v-col cols="12" sm="6" style="position: relative">
-                <v-select
+                <v-autocomplete
                   required
                   v-model="editedItem.roomId"
                   :error-messages="getErrorMessages(editedItem.roomId)"
@@ -331,10 +331,10 @@
                   label="Room *"
                   item-text="name"
                   item-value="id"
-                ></v-select>
+                ></v-autocomplete>
               </v-col>
               <v-col cols="12" sm="6" style="position: relative">
-                <v-select
+                <v-autocomplete
                   v-model="editedItem.openingId"
                   :error-messages="getErrorMessages(editedItem.openingId)"
                   :items="openings"
@@ -344,7 +344,7 @@
                   label="Opening"
                   item-text="title"
                   item-value="id"
-                ></v-select>
+                ></v-autocomplete>
               </v-col>
               <v-col cols="12" sm="6" style="position: relative">
                 <v-select
