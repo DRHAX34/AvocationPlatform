@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 <template>
   <v-container fluid fill-height class="align-start" id="openingsContainer">
     <v-card width="100%" max-height="100%">
@@ -75,11 +74,10 @@
                   :error-messages="getErrorMessages($v.editedItem.clientId)"
                   :items="clients"
                   prepend-icon="mdi-account-multiple"
-                  single-line
-                  menu-props="auto"
                   label="Client *"
                   item-text="name"
                   item-value="id"
+                  :clearable="true"
                 ></v-select>
                 <v-progress-linear
                   :active="clientsLoading"
@@ -158,8 +156,9 @@
 </template>
 
 <script>
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { validationMixin } from "vuelidate";
-import { required, maxLength } from "vuelidate/lib/validators";
+import { required } from "vuelidate/lib/validators";
 
 export default {
   data() {
@@ -365,9 +364,11 @@ export default {
       this.defaultItem.id = "";
       this.defaultItem.title = "";
       this.defaultItem.description = "";
+      this.defaultItem.clientId = "";
       this.editedItem.id = "";
       this.editedItem.title = "";
       this.editedItem.description = "";
+      this.editedItem.clientId = "";
     },
     showDeleteDialog(item) {
       this.dialogDelete;

@@ -1,11 +1,5 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "../views/Home.vue";
-import Appointments from "../views/Appointments.vue";
-import Openings from "../views/Openings.vue";
-import Clients from "../views/Clients.vue";
-import Candidates from "../views/Candidates.vue";
-import MeetingRooms from "../views/MeetingRooms.vue";
 
 Vue.use(VueRouter);
 
@@ -13,35 +7,71 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Home.vue"),
   },
   {
     path: "/Appointments",
     name: "Appointments",
-    component: Appointments,
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Appointments.vue"),
   },
   {
     path: "/Openings",
     name: "Openings",
-    component: Openings,
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Openings.vue"),
   },
   {
     path: "/Candidates",
     name: "Candidates",
-    component: Candidates,
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Candidates.vue"),
   },
   {
     path: "/Clients",
     name: "Clients",
-    component: Clients,
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Clients.vue"),
   },
   {
     path: "/MeetingRooms",
     name: "MeetingRooms",
-    component: MeetingRooms,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/MeetingRooms.vue"),
   },
   {
-    path: "/about",
+    path: "/Candidate",
+    name: "Candidate",
+    redirect: "/Candidate/Dashboard",
+  },
+  {
+    path: "/Candidate/Dashboard",
+    name: "CandidateDashboard",
+    component: () => import("../views/Candidate/Dashboard.vue"),
+  },
+  {
+    path: "/Candidate/Onboarding",
+    name: "CandidateOnboarding",
+    component: () => import("../views/Candidate/Onboarding.vue"),
+  },
+  {
+    path: "/About",
     name: "About",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

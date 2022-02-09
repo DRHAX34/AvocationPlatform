@@ -64,158 +64,6 @@
               </div>
             </v-sheet>
           </v-col>
-          <v-col cols="12">
-            <v-sheet color="white" elevation="1">
-              <div class="appointment-holder">
-                <div class="appointment-time">00:00 AM</div>
-                <div class="appointment-details">
-                  <div class="appointment-title">
-                    <span class="position-title">Software Engineer</span> |
-                    <span class="position-time">Full-Time</span>
-                  </div>
-                  <div class="appointment-company">
-                    Very Real Company, Incorporated
-                  </div>
-                </div>
-                <div class="appointment-menu">
-                  <v-btn icon><v-icon dark> mdi-dots-vertical </v-icon></v-btn>
-                </div>
-              </div>
-            </v-sheet>
-          </v-col>
-          <v-col cols="12">
-            <v-sheet color="white" elevation="1">
-              <div class="appointment-holder">
-                <div class="appointment-time">00:00 AM</div>
-                <div class="appointment-details">
-                  <div class="appointment-title">
-                    <span class="position-title">Software Engineer</span> |
-                    <span class="position-time">Full-Time</span>
-                  </div>
-                  <div class="appointment-company">
-                    Very Real Company, Incorporated
-                  </div>
-                </div>
-                <div class="appointment-menu">
-                  <v-btn icon><v-icon dark> mdi-dots-vertical </v-icon></v-btn>
-                </div>
-              </div>
-            </v-sheet>
-          </v-col>
-          <v-col cols="12">
-            <v-sheet color="white" elevation="1">
-              <div class="appointment-holder">
-                <div class="appointment-time">00:00 AM</div>
-                <div class="appointment-details">
-                  <div class="appointment-title">
-                    <span class="position-title">Software Engineer</span> |
-                    <span class="position-time">Full-Time</span>
-                  </div>
-                  <div class="appointment-company">
-                    Very Real Company, Incorporated
-                  </div>
-                </div>
-                <div class="appointment-menu">
-                  <v-btn icon><v-icon dark> mdi-dots-vertical </v-icon></v-btn>
-                </div>
-              </div>
-            </v-sheet>
-          </v-col>
-          <v-col cols="12">
-            <v-sheet color="white" elevation="1">
-              <div class="appointment-holder">
-                <div class="appointment-time">00:00 AM</div>
-                <div class="appointment-details">
-                  <div class="appointment-title">
-                    <span class="position-title">Software Engineer</span> |
-                    <span class="position-time">Full-Time</span>
-                  </div>
-                  <div class="appointment-company">
-                    Very Real Company, Incorporated
-                  </div>
-                </div>
-                <div class="appointment-menu">
-                  <v-btn icon><v-icon dark> mdi-dots-vertical </v-icon></v-btn>
-                </div>
-              </div>
-            </v-sheet>
-          </v-col>
-          <v-col cols="12">
-            <v-sheet color="white" elevation="1">
-              <div class="appointment-holder">
-                <div class="appointment-time">00:00 AM</div>
-                <div class="appointment-details">
-                  <div class="appointment-title">
-                    <span class="position-title">Software Engineer</span> |
-                    <span class="position-time">Full-Time</span>
-                  </div>
-                  <div class="appointment-company">
-                    Very Real Company, Incorporated
-                  </div>
-                </div>
-                <div class="appointment-menu">
-                  <v-btn icon><v-icon dark> mdi-dots-vertical </v-icon></v-btn>
-                </div>
-              </div>
-            </v-sheet>
-          </v-col>
-          <v-col cols="12">
-            <v-sheet color="white" elevation="1">
-              <div class="appointment-holder">
-                <div class="appointment-time">00:00 AM</div>
-                <div class="appointment-details">
-                  <div class="appointment-title">
-                    <span class="position-title">Software Engineer</span> |
-                    <span class="position-time">Full-Time</span>
-                  </div>
-                  <div class="appointment-company">
-                    Very Real Company, Incorporated
-                  </div>
-                </div>
-                <div class="appointment-menu">
-                  <v-btn icon><v-icon dark> mdi-dots-vertical </v-icon></v-btn>
-                </div>
-              </div>
-            </v-sheet>
-          </v-col>
-          <v-col cols="12">
-            <v-sheet color="white" elevation="1">
-              <div class="appointment-holder">
-                <div class="appointment-time">00:00 AM</div>
-                <div class="appointment-details">
-                  <div class="appointment-title">
-                    <span class="position-title">Software Engineer</span> |
-                    <span class="position-time">Full-Time</span>
-                  </div>
-                  <div class="appointment-company">
-                    Very Real Company, Incorporated
-                  </div>
-                </div>
-                <div class="appointment-menu">
-                  <v-btn icon><v-icon dark> mdi-dots-vertical </v-icon></v-btn>
-                </div>
-              </div>
-            </v-sheet>
-          </v-col>
-          <v-col cols="12">
-            <v-sheet color="white" elevation="1">
-              <div class="appointment-holder">
-                <div class="appointment-time">00:00 AM</div>
-                <div class="appointment-details">
-                  <div class="appointment-title">
-                    <span class="position-title">Software Engineer</span> |
-                    <span class="position-time">Full-Time</span>
-                  </div>
-                  <div class="appointment-company">
-                    Very Real Company, Incorporated
-                  </div>
-                </div>
-                <div class="appointment-menu">
-                  <v-btn icon><v-icon dark> mdi-dots-vertical </v-icon></v-btn>
-                </div>
-              </div>
-            </v-sheet>
-          </v-col>
         </v-row>
       </v-col>
     </v-row>
@@ -304,20 +152,6 @@
                     format="24hr"
                   ></v-time-picker>
                 </v-menu>
-              </v-col>
-              <v-col cols="12" sm="6" style="position: relative">
-                <v-autocomplete
-                  required
-                  v-model="editedItem.candidateId"
-                  :error-messages="getErrorMessages(editedItem.candidateId)"
-                  :items="candidates"
-                  prepend-icon="mdi-account-box-outline"
-                  single-line
-                  menu-props="auto"
-                  label="Candidate *"
-                  item-text="preferredName"
-                  item-value="id"
-                ></v-autocomplete>
               </v-col>
               <v-col cols="12" sm="6" style="position: relative">
                 <v-autocomplete
@@ -420,7 +254,7 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-import { required, maxLength } from "vuelidate/lib/validators";
+import { required } from "vuelidate/lib/validators";
 import Vue from "vue";
 
 export default Vue.extend({
@@ -546,10 +380,13 @@ export default Vue.extend({
     },
     dateToMonth() {
       return (
-        this.currentDate.toLocaleString("default", { month: "long" }) +
+        this.currentDate.toLocaleString("en", { month: "long" }) +
         " " +
         this.currentDate.getFullYear()
       );
+    },
+    fetchAppointments() {
+      this.$ApiService.Get("Appointments");
     },
     fetchOpenings() {
       this.openingsLoading = true;
